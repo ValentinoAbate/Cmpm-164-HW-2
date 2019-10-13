@@ -7,6 +7,8 @@ struct Material
 	Vector3 color = Vector3();
 	float reflectance = 0;
 	float refractance = 1;
+	float specComponent = 48;
+	float diffuseComponent = 1;
 	float specExponent = 1;
 };
 

@@ -28,6 +28,8 @@ public:
 	// https://www.scratchapixel.com/code.php?id=8&origin=/lessons/3d-basic-rendering/ray-tracing-overview
 	static Vector3 normalize(const Vector3& v);
 	static Vector3 direction(const Vector3& from, const Vector3& to);
-	static float dotProduct(const Vector3& v1, const Vector3& v2);
+	static const float dotProduct(const Vector3& v1, const Vector3& v2);
+	static Vector3 clamp(const Vector3& vec, float min, float max);
+	static Vector3 reflect(const Vector3& incident, const Vector3& normal);
 };
 
