@@ -110,11 +110,11 @@ int main()
 {
 	Camera cam = Camera();
 	cam.backgroundColor = Vector3(1, 0, 0);
-	cam.imageWidthPix = 500;
-	cam.imageHeightPix = 500;
-	cam.imagePlaneTopLeft = Vector3(-1, -1, 0);
-	cam.imagePlaneBottomRight = Vector3(1, 1, 0);
-	cam.position = Vector3(0, 0, -1);
+	cam.imageWidthPix = 800;
+	cam.imageHeightPix = 800;
+	cam.imagePlaneTopLeft = Vector3(-0.5, -0.5, 0);
+	cam.imagePlaneBottomRight = Vector3(0.5, 0.5, 0);
+	cam.position = Vector3(0, 0, -2);
 
 #pragma region Define Objects
 	// Initialize object array
@@ -127,9 +127,9 @@ int main()
 	defaultMat2.color = Vector3(1, 1, 1);
 	defaultMat2.specExponent = 96;
 	// Create and emplace objects
-	Sphere* sphere1 = new Sphere(Vector3(0, 0, 1), 0.5, defaultMat);
+	Sphere* sphere1 = new Sphere(Vector3(0, 0, 1), 0.25, defaultMat);
 	objects.emplace_back(std::unique_ptr<Sphere>(sphere1));
-	Sphere* sphere2 = new Sphere(Vector3(2, -3, 3), 0.5, defaultMat2);
+	Sphere* sphere2 = new Sphere(Vector3(0.8, -0.8, 3), 0.25, defaultMat2);
 	objects.emplace_back(std::unique_ptr<Sphere>(sphere2));
 #pragma endregion
 
@@ -137,6 +137,8 @@ int main()
 	std::vector<std::unique_ptr<Light>> lights = std::vector<std::unique_ptr<Light>>();
 	Light* l1 = new Light(Vector3(0, 0.5, 0.5), Vector3(1, 1, 1), 1);
 	lights.emplace_back(std::unique_ptr<Light>(l1));
+	Light* l2 = new Light(Vector3(2, 2, 0.-1), Vector3(0.5, 1, 0.5), 1);
+	lights.emplace_back(std::unique_ptr<Light>(l2));
 #pragma endregion
 
 	//render frame
