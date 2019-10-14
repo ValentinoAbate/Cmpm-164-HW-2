@@ -31,5 +31,6 @@ public:
 	static const float dotProduct(const Vector3& v1, const Vector3& v2);
 	static Vector3 clamp(const Vector3& vec, float min, float max);
 	static Vector3 reflect(const Vector3& incident, const Vector3& normal);
+	static Vector3 lerp(const Vector3& v1, const Vector3& v2, float lerpFactor);
 };
 

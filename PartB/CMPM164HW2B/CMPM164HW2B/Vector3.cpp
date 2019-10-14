@@ -8,6 +8,11 @@ float clampf(float value, float min, float max)
 	return value < max ? value : max;
 }
 
+float lerpf(float v1, float v2, float lerpFactor)
+{
+	return (1 - lerpFactor)* v1 + lerpFactor * v2;
+}
+
 // Returns the input vector normalized
 // Code snippet adapted from: scrathapixels ray-tracing tutorial source:
 // https://www.scratchapixel.com/code.php?id=8&origin=/lessons/3d-basic-rendering/ray-tracing-overview
@@ -40,4 +45,9 @@ Vector3 Vector3::clamp(const Vector3& vec, float min, float max)
 Vector3 Vector3::reflect(const Vector3& incident, const Vector3& normal)
 {
 	return incident - (normal * (dotProduct(incident, normal) * 2));
+}
+
+Vector3 Vector3::lerp(const Vector3& v1, const Vector3& v2, float lerpFactor)
+{
+	return Vector3(lerpf(v1.x, v2.x, lerpFactor), lerpf(v1.y, v2.y, lerpFactor), lerpf(v1.z, v2.z, lerpFactor));
 }
