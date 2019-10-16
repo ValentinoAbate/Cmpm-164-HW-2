@@ -54,17 +54,21 @@ Vector3 phongLighting(const Vector3& cameraPos, const std::unique_ptr<Object>& o
 // Casts an initial ray that will eventually return a color to color a pixel with
 Vector3 castRay(const Vector3& rayOrigin, const Vector3& rayDir, 
 	const std::vector<std::unique_ptr<Object>>& objects, const std::vector<std::unique_ptr<Light>>& lights, 
-	int depth, int maxDepth, Vector3 backgroundColor, int ignoreObj = -1)
+	int depth, int maxDepth, Camera cam, std::vector<int>& ignoreIndices)
 {
 	if (depth == maxDepth)
-		return backgroundColor;
+		return cam.backgroundColor;
 	float closeHitDist = 0;
 	float minHitDist = std::numeric_limits<float>().infinity();
 	int closestObjIndex = -1;
 	// Look through all objects to find the closest one that intersects
 	for (size_t i = 0; i < objects.size(); ++i)
 	{
-		if (i == ignoreObj)
+		bool continueIfTrue = false;
+		for (int skip : ignoreIndices)
+			if (i == skip)
+				continueIfTrue = true;
+		if (continueIfTrue)
 			continue;
 		if (objects[i]->Intersect(rayOrigin, rayDir, closeHitDist) && closeHitDist < minHitDist)
 		{
@@ -78,14 +82,15 @@ Vector3 castRay(const Vector3& rayOrigin, const Vector3& rayDir,
 		//return objects[closestObjIndex]->mat.color;
 		auto hitPoint = rayOrigin + (rayDir * closeHitDist);
 		auto hitMat = objects[closestObjIndex]->mat;
-		auto phongComponent = phongLighting(rayOrigin, objects[closestObjIndex], hitPoint, objects, lights);
+		auto phongComponent = phongLighting(cam.position, objects[closestObjIndex], hitPoint, objects, lights);
 		if (hitMat.alpha == 1)
 			return phongComponent;
-		auto transparentComponent = castRay(hitPoint, rayDir, objects, lights, depth + 1, maxDepth, backgroundColor, closestObjIndex);
+		ignoreIndices.push_back(closestObjIndex);
+		auto transparentComponent = castRay(cam.position, rayDir, objects, lights, depth + 1, maxDepth, cam, ignoreIndices);
 		return Vector3::lerp(transparentComponent, phongComponent, hitMat.alpha);
 	}
 	// Ray missed all objects, return the background color
-	return backgroundColor;
+	return cam.backgroundColor;
 }
 
 // renders a frame of output to an std::vector of Vector3s considered as colors and returns it
@@ -107,8 +112,9 @@ std::vector<Vector3> renderFrame(const Camera& cam, const std::vector<std::uniqu
 			imagePlanePos.y += widthPerPixel * (i + 0.5);
 			// generate primary ray direction
 			Vector3 rayDirection = Vector3::direction(cam.position, imagePlanePos);
+			std::vector<int> ignoreIndices = std::vector<int>();
 			// Store the color that casting a ray returns
-			frameBuffer[i * cam.imageHeightPix + j] = castRay(cam.position, rayDirection, objects, lights, 0, maxDepth, cam.backgroundColor);
+			frameBuffer[i * cam.imageHeightPix + j] = castRay(cam.position, rayDirection, objects, lights, 0, maxDepth, cam, ignoreIndices);
 		}
 	}
 
@@ -137,15 +143,17 @@ int main()
 	defaultMat2.specExponent = 96;
 	Material defaultMat3 = Material();
 	defaultMat3.color = Vector3(1, 1, 1);
-	defaultMat3.alpha = 0;
+	defaultMat3.alpha = 0.5;
 	defaultMat3.specExponent = 96;
 	// Create and emplace objects
 	Sphere* sphere1 = new Sphere(Vector3(0, 0, 1), 0.25, defaultMat3);
 	objects.emplace_back(std::unique_ptr<Sphere>(sphere1));
 	Sphere* sphere2 = new Sphere(Vector3(0.8, -0.8, 3), 0.25, defaultMat2);
 	objects.emplace_back(std::unique_ptr<Sphere>(sphere2));
-	Sphere* sphere3 = new Sphere(Vector3(0, 0, 2), 0.25, defaultMat);
+	Sphere* sphere3 = new Sphere(Vector3(0.5, 0, 4), 0.25, defaultMat3);
 	objects.emplace_back(std::unique_ptr<Sphere>(sphere3));
+	Sphere* sphere4 = new Sphere(Vector3(0.7, 0, 5), 0.25, defaultMat2);
+	objects.emplace_back(std::unique_ptr<Sphere>(sphere4));
 #pragma endregion
 
 #pragma region Define Lights
