@@ -40,13 +40,12 @@ Vector3 phongLighting(const Vector3& cameraPos, const std::unique_ptr<Object>& o
 		{
 			diffuseComponent += (obj->mat.color * lights[i]->color) * nDotL;
 			auto viewVec = Vector3::direction(intersectPoint, cameraPos);
-			auto reflectVec = (normal * (Vector3::dotProduct(lightVec, normal) * 2)) - lightVec;
+			auto reflectVec = Vector3::normalize((normal * (Vector3::dotProduct(lightVec, normal) * 2)) - lightVec);
 			auto rDotV = Vector3::dotProduct(reflectVec, viewVec);
 			if(rDotV > 0)
 				specComponent += lights[i]->color * powf(rDotV, obj->mat.specExponent);
 		}
 	}
-
 	// return final light component clamped to be a valid color
 	return Vector3::clamp(diffuseComponent + specComponent, 0, 1);
 }
@@ -86,7 +85,7 @@ Vector3 castRay(const Vector3& rayOrigin, const Vector3& rayDir,
 		if (hitMat.alpha == 1)
 			return phongComponent;
 		ignoreIndices.push_back(closestObjIndex);
-		auto transparentComponent = castRay(cam.position, rayDir, objects, lights, depth + 1, maxDepth, cam, ignoreIndices);
+		auto transparentComponent = castRay(hitPoint, rayDir, objects, lights, depth + 1, maxDepth, cam, ignoreIndices);
 		return Vector3::lerp(transparentComponent, phongComponent, hitMat.alpha);
 	}
 	// Ray missed all objects, return the background color
