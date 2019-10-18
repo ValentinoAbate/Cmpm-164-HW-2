@@ -51,3 +51,19 @@ Vector3 Vector3::lerp(const Vector3& v1, const Vector3& v2, float lerpFactor)
 {
 	return Vector3(lerpf(v1.x, v2.x, lerpFactor), lerpf(v1.y, v2.y, lerpFactor), lerpf(v1.z, v2.z, lerpFactor));
 }
+
+Vector3 Vector3::crossProduct(const Vector3& v1, const Vector3& v2)
+{
+	float x = v1.y * v2.z - v1.z * v2.y;
+	float y = v1.x * v2.z - v1.z * v2.x;
+	float z = v1.x * v2.y - v1.y * v2.x;
+	return Vector3(x, y, z);
+}
+
+float Vector3::distance(const Vector3& v1, const Vector3& v2)
+{
+	float dx = v1.x - v2.x;
+	float dy = v1.y - v2.y;
+	float dz = v1.z - v2.z;
+	return sqrtf(dx * dx + dy * dy + dz * dz);
+}

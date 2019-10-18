@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Vector3.h"
+#include <string>
 
 struct Material
 {
 	Vector3 color = Vector3();
 	float alpha = 1;
 	float reflectance = 0;
-	float refractance = 1;
+	float indexOfRefraction = 1;
 	float diffuseComponent = 1;
 	float specComponent = 1;
 	float specExponent = 48;
@@ -16,6 +17,7 @@ struct Material
 class Object
 {
 public:
+	std::string name = "";
 	Vector3 position;
 	Material mat;
 	Object(Vector3 position, Material mat) : position(position), mat(mat) {}

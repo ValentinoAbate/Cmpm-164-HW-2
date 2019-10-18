@@ -1,7 +1,8 @@
 ﻿  CMPM164HW2B.cpp
-C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(15,41): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(110,48): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(111,48): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(150,51): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(154,48): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(16,41): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(141,48): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(142,48): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(182,38): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(189,31): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\CMPM164HW2B\CMPM164HW2B.cpp(199,54): warning C4305:  'argument': truncation from 'double' to 'float'
   CMPM164HW2B.vcxproj -> C:\Users\valen\Documents\GitHub\Cmpm-164-HW-2\PartB\CMPM164HW2B\Debug\CMPM164HW2B.exe
