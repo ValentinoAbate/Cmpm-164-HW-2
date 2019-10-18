@@ -154,8 +154,8 @@ int main()
 {
 	Camera cam = Camera();
 	cam.backgroundColor = Vector3(1, 0, 0);
-	cam.imageWidthPix = 2048;
-	cam.imageHeightPix = 2048;
+	cam.imageWidthPix = 4096;
+	cam.imageHeightPix = 4096;
 	cam.imagePlaneTopLeft = Vector3(-0.5, -0.5, 0);
 	cam.imagePlaneBottomRight = Vector3(0.5, 0.5, 0);
 	cam.position = Vector3(0, 0, -2);
@@ -173,6 +173,7 @@ int main()
 	Material matReflect = Material();
 	matReflect.color = Vector3(0.75, 0.75, 0.75);
 	matReflect.specExponent = 96;
+	matReflect.reflectance = 0.75;
 
 	// Transparent mats
 	Material matHalfTransparent = Material();
